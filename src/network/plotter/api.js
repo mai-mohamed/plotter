@@ -1,5 +1,9 @@
 import { axiosInstance } from "../index";
 
-export function getPlotterColumns() {
+export const getPlotterColumns = () => {
   return axiosInstance.get("columns");
-}
+};
+
+export const getChart = (payload) => {
+  return axiosInstance.post("data", payload);
+};
