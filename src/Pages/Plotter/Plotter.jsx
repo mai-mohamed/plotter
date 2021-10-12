@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import Columns from "./Columns/Columns";
-import { getChart, getPlotterColumns } from "../../network/plotter/api";
 import Filters from "./Filters/Filters";
+import Chart from "../../Components/Chart/Chart";
+import { getChart, getPlotterColumns } from "../../network/plotter/api";
 
 const Plotter = () => {
   const [colData, setColData] = useState([]);
   const [dimentionData, setDimentionData] = useState([]);
   const [measureData, setMeasureData] = useState([]);
+  const [chartData, setChartData] = useState();
+  const [plotted, setPlotted] = useState([]);
 
   useEffect(() => {
     getPlotterColumnsData();
@@ -24,6 +27,26 @@ const Plotter = () => {
     }
   }, [dimentionData, measureData]);
 
+  useEffect(() => {
+    if (chartData?.length > 1) {
+      let modifiedData = [...chartData];
+      modifiedData?.shift();
+
+      const plottedData = modifiedData.map((cell) => {
+        return {
+          id: cell.name,
+          color: "hsl(255, 70%, 50%)",
+          data: cell.values.map((y, i) => ({
+            x: chartData[0].values[i],
+            y,
+          })),
+        };
+      });
+
+      setPlotted(plottedData);
+    }
+  }, [chartData]);
+
   const getPlotterColumnsData = () => {
     getPlotterColumns()
       .then(({ data }) => setColData(data))
@@ -32,7 +55,7 @@ const Plotter = () => {
 
   const getChartData = (payload) => {
     getChart(payload)
-      .then(({ data }) => console.log(data))
+      .then(({ data }) => setChartData(data))
       .catch((err) => console.log(err));
   };
 
@@ -74,6 +97,10 @@ const Plotter = () => {
         measureData={measureData}
         onDrop={onDrop}
       />
+      <div className="chart__wrapper">
+        {console.log(plotted)}
+        <Chart data={plotted} />
+      </div>
     </div>
   );
 };
