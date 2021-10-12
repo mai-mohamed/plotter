@@ -1,17 +1,10 @@
-import { useEffect } from "react";
-import { getPlotterColumns } from "../../../network/plotter/api";
+import Draggable from "../../../Components/Draggable/Draggable";
 
-const Columns = () => {
-  useEffect(() => {
-    getPlotterColumnsData();
-  }, []);
-
-  const getPlotterColumnsData = () => {
-    getPlotterColumns()
-      .then(({ data }) => console.log(data))
-      .catch((err) => console.log(err));
-  };
-
-  return <></>;
+const Columns = ({ colData, onDrop }) => {
+  return (
+    <>
+      <Draggable data={colData} onDrop={(e) => onDrop(e)} />
+    </>
+  );
 };
 export default Columns;
