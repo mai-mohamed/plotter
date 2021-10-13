@@ -1,0 +1,10 @@
+.chart__wrapper {
+  height: 450px;
+}
+.measure,
+.dimension {
+  cursor: move;
+}
+.border {
+  border-radius: 5px;
+}

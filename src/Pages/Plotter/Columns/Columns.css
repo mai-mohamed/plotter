@@ -1,0 +1,15 @@
+@media (min-width: 975px) {
+  .columns__wrapper {
+    height: 90vh;
+  }
+}
+
+@media (max-width: 975px) {
+  .columns-content {
+    display: flex;
+    flex-direction: row;
+  }
+  .columns-content div {
+    padding: 10px;
+  }
+}
