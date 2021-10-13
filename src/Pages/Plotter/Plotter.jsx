@@ -4,6 +4,7 @@ import Filters from "./Filters/Filters";
 import Chart from "../../Components/Chart/Chart";
 import Loader from "../../Components/Loader/Loader";
 import { getChart, getPlotterColumns } from "../../network/plotter/api";
+import "./Plotter.css";
 
 const Plotter = () => {
   const [colData, setColData] = useState([]);
@@ -103,22 +104,28 @@ const Plotter = () => {
   return (
     <>
       {colData.length > 0 ? (
-        <div className="plotter__wrapper">
-          <Columns colData={colData} onDrop={onDrop} />
-          <Filters
-            dimentionData={dimentionData}
-            measureData={measureData}
-            onDrop={onDrop}
-            clearFilteredData={clearFilteredData}
-          />
-          {plotted?.length > 0 && (
-            <div className="chart__wrapper">
-              <Chart data={plotted} />
-            </div>
-          )}
-          {chartData?.length < 2 && (
-            <p>please choose the data you want to be plotted</p>
-          )}
+        <div className="plotter__wrapper row my-5">
+          <div className="col-lg-3 col-xl-2">
+            <Columns colData={colData} onDrop={onDrop} />
+          </div>
+          <div className="col-lg-9 col-xl-10">
+            <Filters
+              dimentionData={dimentionData}
+              measureData={measureData}
+              onDrop={onDrop}
+              clearFilteredData={clearFilteredData}
+            />
+            {plotted?.length > 0 && (
+              <div className="chart__wrapper">
+                <Chart data={plotted} />
+              </div>
+            )}
+            {chartData?.length < 2 && (
+              <p className="text-center my-5">
+                please choose the data you want to be plotted
+              </p>
+            )}
+          </div>
         </div>
       ) : (
         <Loader />
