@@ -1,6 +1,5 @@
 import {
   onDragStart,
-  onDragEnd,
   onDragEnter,
   onDragLeave,
   onDragOver,
@@ -12,7 +11,6 @@ const Draggable = ({ className, onDrop, data }) => {
       className={className}
       onDragLeave={(e) => onDragLeave(e)}
       onDragEnter={(e) => onDragEnter(e)}
-      onDragEnd={(e) => onDragEnd(e)}
       onDragOver={(e) => onDragOver(e)}
       onDrop={(e) => onDrop(e, false)}
     >
@@ -23,7 +21,6 @@ const Draggable = ({ className, onDrop, data }) => {
           id={task.name}
           draggable
           onDragStart={(e) => onDragStart(e)}
-          onDragEnd={(e) => onDragEnd(e)}
         >
           {task.name}
         </div>
