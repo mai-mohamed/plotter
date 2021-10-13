@@ -89,7 +89,16 @@ const Plotter = () => {
     );
     return colDataArr;
   };
-
+  const clearFilteredData = (type) => {
+    if (type == "dimention") {
+      setColData([...colData, ...dimentionData]);
+      setDimentionData([]);
+    } else {
+      setColData([...colData, ...measureData]);
+      setMeasureData([]);
+    }
+    setPlotted([]);
+  };
   return (
     <>
       {colData.length > 0 ? (
@@ -99,6 +108,7 @@ const Plotter = () => {
             dimentionData={dimentionData}
             measureData={measureData}
             onDrop={onDrop}
+            clearFilteredData={clearFilteredData}
           />
           {plotted?.length > 0 && (
             <div className="chart__wrapper">
