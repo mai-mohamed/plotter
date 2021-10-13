@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import Columns from "./Columns/Columns";
 import Filters from "./Filters/Filters";
 import Chart from "../../Components/Chart/Chart";
+import Loader from "../../Components/Loader/Loader";
 import { getChart, getPlotterColumns } from "../../network/plotter/api";
 
 const Plotter = () => {
   const [colData, setColData] = useState([]);
   const [dimentionData, setDimentionData] = useState([]);
   const [measureData, setMeasureData] = useState([]);
-  const [chartData, setChartData] = useState();
+  const [chartData, setChartData] = useState([]);
   const [plotted, setPlotted] = useState([]);
 
   useEffect(() => {
@@ -88,20 +89,41 @@ const Plotter = () => {
     );
     return colDataArr;
   };
-
+  const clearFilteredData = (type) => {
+    if (type == "dimention") {
+      setColData([...colData, ...dimentionData]);
+      setDimentionData([]);
+    } else {
+      setColData([...colData, ...measureData]);
+      setMeasureData([]);
+    }
+    setChartData([]);
+    setPlotted([]);
+  };
   return (
-    <div className="plotter__wrapper">
-      <Columns colData={colData} onDrop={onDrop} />
-      <Filters
-        dimentionData={dimentionData}
-        measureData={measureData}
-        onDrop={onDrop}
-      />
-      <div className="chart__wrapper">
-        {console.log(plotted)}
-        <Chart data={plotted} />
-      </div>
-    </div>
+    <>
+      {colData.length > 0 ? (
+        <div className="plotter__wrapper">
+          <Columns colData={colData} onDrop={onDrop} />
+          <Filters
+            dimentionData={dimentionData}
+            measureData={measureData}
+            onDrop={onDrop}
+            clearFilteredData={clearFilteredData}
+          />
+          {plotted?.length > 0 && (
+            <div className="chart__wrapper">
+              <Chart data={plotted} />
+            </div>
+          )}
+          {chartData?.length < 2 && (
+            <p>please choose the data you want to be plotted</p>
+          )}
+        </div>
+      ) : (
+        <Loader />
+      )}
+    </>
   );
 };
 
