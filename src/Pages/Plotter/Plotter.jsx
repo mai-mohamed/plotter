@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Columns from "./Columns/Columns";
 import Filters from "./Filters/Filters";
 import Chart from "../../Components/Chart/Chart";
+import Loader from "../../Components/Loader/Loader";
 import { getChart, getPlotterColumns } from "../../network/plotter/api";
 
 const Plotter = () => {
@@ -90,19 +91,25 @@ const Plotter = () => {
   };
 
   return (
-    <div className="plotter__wrapper">
-      <Columns colData={colData} onDrop={onDrop} />
-      <Filters
-        dimentionData={dimentionData}
-        measureData={measureData}
-        onDrop={onDrop}
-      />
-      {plotted?.length > 0 && (
-        <div className="chart__wrapper">
-          <Chart data={plotted} />
+    <>
+      {colData.length > 0 ? (
+        <div className="plotter__wrapper">
+          <Columns colData={colData} onDrop={onDrop} />
+          <Filters
+            dimentionData={dimentionData}
+            measureData={measureData}
+            onDrop={onDrop}
+          />
+          {plotted?.length > 0 && (
+            <div className="chart__wrapper">
+              <Chart data={plotted} />
+            </div>
+          )}
         </div>
+      ) : (
+        <Loader />
       )}
-    </div>
+    </>
   );
 };
 
