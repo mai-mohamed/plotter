@@ -4,6 +4,7 @@ import "./Filters.css";
 const Filters = ({ dimentionData, measureData, onDrop, clearFilteredData }) => {
   return (
     <>
+      <label>Dimension</label>
       <div className="border my-2 row mx-0">
         <div className="col-10 px-0">
           <Draggable
@@ -24,6 +25,7 @@ const Filters = ({ dimentionData, measureData, onDrop, clearFilteredData }) => {
           </div>
         )}
       </div>
+      <label>Measure</label>
       <div className="border my-2 row mx-0">
         <div className="col-10 px-0">
           <Draggable
