@@ -97,10 +97,11 @@ const Plotter = () => {
         measureData={measureData}
         onDrop={onDrop}
       />
-      <div className="chart__wrapper">
-        {console.log(plotted)}
-        <Chart data={plotted} />
-      </div>
+      {plotted?.length > 0 && (
+        <div className="chart__wrapper">
+          <Chart data={plotted} />
+        </div>
+      )}
     </div>
   );
 };
