@@ -9,7 +9,7 @@ const Plotter = () => {
   const [colData, setColData] = useState([]);
   const [dimentionData, setDimentionData] = useState([]);
   const [measureData, setMeasureData] = useState([]);
-  const [chartData, setChartData] = useState();
+  const [chartData, setChartData] = useState([]);
   const [plotted, setPlotted] = useState([]);
 
   useEffect(() => {
@@ -97,6 +97,7 @@ const Plotter = () => {
       setColData([...colData, ...measureData]);
       setMeasureData([]);
     }
+    setChartData([]);
     setPlotted([]);
   };
   return (
@@ -114,6 +115,9 @@ const Plotter = () => {
             <div className="chart__wrapper">
               <Chart data={plotted} />
             </div>
+          )}
+          {chartData?.length < 2 && (
+            <p>please choose the data you want to be plotted</p>
           )}
         </div>
       ) : (
