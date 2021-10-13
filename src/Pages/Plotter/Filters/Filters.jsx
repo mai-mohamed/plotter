@@ -12,14 +12,17 @@ const Filters = ({ dimentionData, measureData, onDrop, clearFilteredData }) => {
             className="filter-box d-flex"
           />
         </div>
-        <div className="col-2 text-end p-0">
-          <button
-            className="btn btn-outline-secondary"
-            onClick={() => clearFilteredData("dimention")}
-          >
-            clear
-          </button>
-        </div>
+
+        {dimentionData?.length > 0 && (
+          <div className="col-2 text-end p-0">
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => clearFilteredData("dimention")}
+            >
+              clear
+            </button>
+          </div>
+        )}
       </div>
       <div className="border my-2 row mx-0">
         <div className="col-10 px-0">
@@ -29,14 +32,16 @@ const Filters = ({ dimentionData, measureData, onDrop, clearFilteredData }) => {
             className="filter-box d-flex"
           />
         </div>
-        <div className="col-2 text-end p-0">
-          <button
-            className="btn btn-outline-secondary"
-            onClick={() => clearFilteredData("measure")}
-          >
-            clear
-          </button>
-        </div>
+        {measureData?.length > 0 && (
+          <div className="col-2 text-end p-0">
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => clearFilteredData("measure")}
+            >
+              clear
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
